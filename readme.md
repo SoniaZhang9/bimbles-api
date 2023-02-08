@@ -27,4 +27,11 @@ click en el link señalado.
 ## Descargaar maven
 
 ## Abrir en su IDE correspondinte
+1. Instalar las dependencias del proyecto con `mvn install` o a través de su IDE:
+
+![maven](https://user-images.githubusercontent.com/78765878/217403162-bcb299db-28c7-4d18-9f17-22da0e6f41ae.PNG)
+
+2. Ejecutar `BimblesApiApplication.java`
+
+![maven2](https://user-images.githubusercontent.com/78765878/217403161-e4ffab47-cc41-4064-b88d-e68cb4ba0290.PNG)
 
