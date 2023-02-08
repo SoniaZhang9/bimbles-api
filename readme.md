@@ -1,6 +1,6 @@
 # Intalación del proyecto
 Para poder ejecutar el proyecto, primero de todo se necesita descargar lo siguiente:
-## Descarga de SDK 11
+## Descarga de SDK 17
 1. Ir a enlace de [descarga de JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 2. Bajo el apartado *"Java SE Development Kit"*, elegir el archivo instalador (*installer*)
 que se corresponda con su sistema operativo.
