@@ -24,7 +24,7 @@ click en el link señalado.
 ![sql-7](https://user-images.githubusercontent.com/78765878/217398747-27b434dc-34a0-42e4-9804-4060243068ff.PNG)
 ![sql-9](https://user-images.githubusercontent.com/78765878/217401882-8176686d-e772-4887-8190-3ab4cce47cdb.PNG)
 
-## Descargaar maven
+## Descargar maven
 
 ## Abrir en su IDE correspondinte
 1. Instalar las dependencias del proyecto con `mvn install` o a través de su IDE:
@@ -35,3 +35,5 @@ click en el link señalado.
 
 ![maven2](https://user-images.githubusercontent.com/78765878/217403161-e4ffab47-cc41-4064-b88d-e68cb4ba0290.PNG)
 
+## Documentacion generada con swagger
+Temporal: https://app.swaggerhub.com/apis-docs/SoniaZhang9/open-api_definition/v0#/
