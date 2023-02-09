@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -35,6 +36,7 @@ import lombok.Setter;
 @DiscriminatorColumn(name = "ITEM_TYPE")
 @JsonView(Views.NormalUserFavourites.class)
 
+// Adds new atribbute called "type". It can have one of these values: Place, Product, Restaurant or Business
 @JsonTypeInfo( use = JsonTypeInfo.Id.NAME, property = "type", include = JsonTypeInfo.As.PROPERTY) // Include Java class simple-name as JSON property "type"
 @JsonSubTypes({  @JsonSubTypes.Type(value = Restaurant.class), @JsonSubTypes.Type(value = Place.class),  @JsonSubTypes.Type(value = Product.class),  @JsonSubTypes.Type(value = Business.class)}) // Required for deserialization only
 public abstract class Item {
@@ -54,6 +56,7 @@ public abstract class Item {
 	
 	@Column(nullable = false)
 	private String phoneNumber;
+	@Schema( type = "url", example = "https://example.com")
 	private URL website;
 	
 	private String schedule;

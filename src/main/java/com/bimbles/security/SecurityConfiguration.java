@@ -50,7 +50,8 @@ public class SecurityConfiguration{
 			.authorizeHttpRequests()
 				.requestMatchers(
 						"/register", 
-						"/login")
+						"/login",
+						"/swagger-ui/index.html")
 					.permitAll()
 				//.requestMatchers("/preferences").hasAuthority("ADMIN")
 				.requestMatchers(HttpMethod.POST, "/item/(restaurant|place|business|product)").hasAnyAuthority("ADMIN","NORMAL")
