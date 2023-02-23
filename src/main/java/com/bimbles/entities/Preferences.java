@@ -22,17 +22,17 @@ import com.fasterxml.jackson.annotation.JsonView;
 @AllArgsConstructor
 @Embeddable
 public class Preferences {	
-	@Column(name = "DIET", nullable = true)
+	@Column(name = "DIET")
 	@ElementCollection
 	@JsonView(Views.NormalUserPreferences.class)
 	private SortedSet<DietType> diets;
 	
-	@Column(name = "ALLERGY", nullable = true)
+	@Column(name = "ALLERGY")
 	@ElementCollection
 	@JsonView(Views.NormalUserPreferences.class)
 	private SortedSet<AllergyType> allergies;
 	
-	@Column(name = "SPECIAL_NEED", nullable = true)
+	@Column(name = "SPECIAL_NEED")
 	@ElementCollection
 	@JsonView(Views.NormalUserPreferences.class)
 	private SortedSet<SpecialNeedType> specialNeeds;

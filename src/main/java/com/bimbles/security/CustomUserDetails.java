@@ -33,11 +33,11 @@ public class CustomUserDetails implements UserDetails {
 		if (user.getClass().isAssignableFrom(NormalUser.class)) {
 			role = "NORMAL";
 		} else role = "ADMIN";
-		this.authorities = Arrays.asList(new SimpleGrantedAuthority(role));
+		this.authorities = List.of(new SimpleGrantedAuthority(role));
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public List<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 	

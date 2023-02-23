@@ -5,17 +5,17 @@ import java.util.Set;
 import com.bimbles.utils.Views;
 import com.fasterxml.jackson.annotation.JsonView;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Embeddable
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class FavouritesList {
 	@JsonView(Views.NormalUserFavourites.class)
 	@ManyToMany

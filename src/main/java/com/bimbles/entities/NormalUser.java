@@ -22,4 +22,7 @@ public class NormalUser extends User {
 	@Column(nullable = false)
 	@JsonView(Views.NormalUserFavourites.class)
 	private FavouritesList favouritesList;
+
+	@Embedded
+	private Address address;
 }

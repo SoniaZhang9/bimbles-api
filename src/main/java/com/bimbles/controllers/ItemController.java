@@ -2,6 +2,7 @@ package com.bimbles.controllers;
 
 import java.util.List;
 
+import com.bimbles.security.doLoggedInUserHaveAccess;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +33,18 @@ public class ItemController {
 		
 		Pageable page = PageRequest.of(pageNumber, pageSize);
 		List<Item> items = itemService.findAll(page);
+
+		return new  ResponseEntity<List<? extends Item>>(items, HttpStatus.OK);
+	}
+
+	@GetMapping(value="/item-recommendations/{normalUserId}")
+	public ResponseEntity<List<? extends Item>> getRecomendations(@PathVariable("normalUserId") Long normalUserId,
+			@RequestParam(value = "pageNumber", required = false, defaultValue = "0") int pageNumber,
+			@RequestParam(value = "pageSize",  required = false, defaultValue = "5") int pageSize ){
+
+		doLoggedInUserHaveAccess.check(normalUserId);
+		Pageable page = PageRequest.of(pageNumber, pageSize);
+		List<Item> items = itemService.findRecommendations(page, normalUserId);
 
 		return new  ResponseEntity<List<? extends Item>>(items, HttpStatus.OK);
 	}

@@ -21,6 +21,6 @@ public class Image {
 	@Column(name="IMG_TYPE")
 	private String type;
 	
-	@Column(length = 50000000)
+	@Column(length = 500000000)
 	private byte[] imgByte;
 }

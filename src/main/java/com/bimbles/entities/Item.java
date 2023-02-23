@@ -39,7 +39,7 @@ import lombok.Setter;
 // Adds new atribbute called "type". It can have one of these values: Place, Product, Restaurant or Business
 @JsonTypeInfo( use = JsonTypeInfo.Id.NAME, property = "type", include = JsonTypeInfo.As.PROPERTY) // Include Java class simple-name as JSON property "type"
 @JsonSubTypes({  @JsonSubTypes.Type(value = Restaurant.class), @JsonSubTypes.Type(value = Place.class),  @JsonSubTypes.Type(value = Product.class),  @JsonSubTypes.Type(value = Business.class)}) // Required for deserialization only
-public abstract class Item {
+public abstract class Item implements Comparable<Item>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -48,13 +48,11 @@ public abstract class Item {
 	private String title;
 	
 	@Column(nullable = false)
-	private State state;
+	private State state = State.ACTIVE;
 	
 	@Embedded
-	@Column(nullable = false)
 	private Address address;
-	
-	@Column(nullable = false)
+
 	private String phoneNumber;
 	@Schema( type = "url", example = "https://example.com")
 	private URL website;
@@ -76,5 +74,15 @@ public abstract class Item {
 	private Float averageRating = (float) 0;
 	
 	private Integer nTotalRating = 0;
+
+	@Override
+	public String toString() {
+		return "\n Item " + id;
+	}
+
+	@Override
+	public int compareTo(Item o) {
+		return this.id.compareTo(o.getId());
+	}
 }
  

@@ -35,5 +35,16 @@ public class Rating {
 	
 	@Column(nullable = false)
 	private RatingValue value;
+
+	public Integer getOrdinalRatingValue() {
+		return this.value.ordinal();
+	}
+
+	@Override
+	public String toString() {
+		return "\n user=" + user.getId() +
+				", item=" + item.getId() +
+				", value=" + value.ordinal();
+	}
 }
   

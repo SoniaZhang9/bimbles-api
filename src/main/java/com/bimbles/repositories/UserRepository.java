@@ -5,6 +5,6 @@ import java.util.Optional;
 
 import com.bimbles.entities.User;
 
-public interface  UserRepository extends JpaRepository <User, Long> {
-	public Optional<User> findByUserName(String userName);
+public interface UserRepository extends JpaRepository <User, Long> {
+	Optional<User> findByUserName(String userName);
 }
