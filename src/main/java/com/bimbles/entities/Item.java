@@ -77,7 +77,7 @@ public abstract class Item implements Comparable<Item>{
 
 	@Override
 	public String toString() {
-		return "\n Item " + id;
+		return "\n Item " + id + "- " + title;
 	}
 
 	@Override

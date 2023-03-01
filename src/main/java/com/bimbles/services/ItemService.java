@@ -31,8 +31,8 @@ public class ItemService {
 	private ItemRepository itemRepository;
 	@Autowired
 	private RatingRepository ratingRepository;
-	private final Integer max = 10;
-	private final DecimalFormat df = new DecimalFormat("0.00");
+	private final Integer maxSimilarUsers = 10;
+	private final int maxCandidatesNumber = 6;
 
 	public List<Item> findAll(Pageable page) {
 		List<Item> items = itemRepository.findAll(page).toList();
@@ -45,11 +45,11 @@ public class ItemService {
 
 		SortedSet<Long> allSimilarUsersIds = findSimilarUsersForEachPreference(preferences);
 		List<Rating> theirRatings = new ArrayList<>();
+		List<Item> recommendations = new ArrayList<>();
 
 		//Dictionary or Map made by Key-value pairs: (Item-> [rating values])
 		//All items are unique
 		SortedMap<Item,List<Float>> candidates = new TreeMap<>();
-
 		SortedMap<Item,Float> candidatesAverageRating = new TreeMap<>();
 
 		//Remove current user id from similarUsersIds
@@ -69,26 +69,41 @@ public class ItemService {
 		}
 		System.out.println("\n- Ratings values for each item: " + candidates);
 
-		//Calculate average rating for each item
-		for(Map.Entry<Item, List<Float>> entry : candidates.entrySet()){
-			float totalRatings = entry.getValue().size();
-			float average=0;
-			for (Float i : entry.getValue()){
-				average += i;
-			}
-			average = average/totalRatings;
-			candidatesAverageRating.put(entry.getKey(), average);
-		}
+		//Calculate average rating for each candidate
+		calculateCandidatesAverageRating(candidates, candidatesAverageRating);
 
-		//Top recommendations
-		List<Map.Entry<Item,Float>> topRecommendations = new ArrayList<>(candidatesAverageRating.entrySet());
-		topRecommendations.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-		System.out.println("\n - Items ordered by descending average rating: \n" + topRecommendations.toString().replace("\n Item ", " Item ").replace(",",", \n"));
+		//Top candidates to get recommended
+		List<Map.Entry<Item,Float>> topCandidates = new ArrayList<>(candidatesAverageRating.entrySet());
+		topCandidates.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+		System.out.println("\n - Items ordered by descending average rating: \n"
+				+ topCandidates.toString().
+				replace("\n Item ", " Item ")
+				.replace(",",", \n"));
 
-		List<Item> items = itemRepository.findAll(page).toList();
-		return items;
+		filterCandidates(topCandidates, recommendations, maxCandidatesNumber);
+
+		/* COLD START PROBLEM SOLUTION: New items + Rest of items:
+
+		   1-. Get new items without ratings
+		   2-. Get rest of items
+
+		   Add those items to the end of the recommendations list,
+		   so they get a chance to get evaluated by users */
+
+		List<Item> newItems = itemRepository.findItemsWithoutRatings();
+		recommendations.addAll(newItems);
+		//Rest of items
+		List<Item> restItems = itemRepository.findAll();
+		//Substract
+		restItems.removeAll(recommendations);
+		recommendations.addAll(restItems);
+
+
+		System.out.println("\n Recommendations: " + recommendations);
+		return recommendations;
 	}
-	
+
+
 	public Item findById(Long itemId) {
 		Item item = itemRepository.getReferenceById(itemId);
 		return item;
@@ -151,23 +166,45 @@ public class ItemService {
 
 		while(allergies.hasNext()){
 			Integer allergyType = allergies.next().ordinal();
-			List<Long> userIds = normalUserRepository.findSimilarUsersByAllergyType(allergyType, max);
+			List<Long> userIds = normalUserRepository.findSimilarUsersByAllergyType(allergyType, maxSimilarUsers);
 			allSimilarUsers.addAll(userIds);
 		}
 
 		while(diets.hasNext()){
 			Integer dietType = diets.next().ordinal();
-			List<Long> userIds = normalUserRepository.findSimilarUsersByDietType(dietType, max);
+			List<Long> userIds = normalUserRepository.findSimilarUsersByDietType(dietType, maxSimilarUsers);
 			allSimilarUsers.addAll(userIds);
 		}
 
 		while(specialNeeds.hasNext()){
 			Integer specialNeedType = specialNeeds.next().ordinal();
-			List<Long> userIds = normalUserRepository.findSimilarUsersBySpecialNeedType(specialNeedType, max);
+			List<Long> userIds = normalUserRepository.findSimilarUsersBySpecialNeedType(specialNeedType, maxSimilarUsers);
 			allSimilarUsers.addAll(userIds);
 		}
 
 		return allSimilarUsers;
 	}
-	
+
+	private void calculateCandidatesAverageRating(SortedMap<Item,List<Float>> candidates, SortedMap<Item,Float> candidatesAverageRating){
+		for(Map.Entry<Item, List<Float>> entry : candidates.entrySet()){
+			float totalRatings = entry.getValue().size();
+			float average=0;
+			for (Float i : entry.getValue()){
+				average += i;
+			}
+			average = average/totalRatings;
+			candidatesAverageRating.put(entry.getKey(), average);
+		}
+	}
+
+	private void filterCandidates(List<Map.Entry<Item,Float>> topCandidates, List<Item> recommendations, Integer maxCandidatesNumber){
+		int i = 0;
+		for (Map.Entry<Item,Float> entry : topCandidates){
+			if(i == maxCandidatesNumber) break;
+			else {
+				recommendations.add(entry.getKey());
+				i++;
+			}
+		}
+	}
 }
