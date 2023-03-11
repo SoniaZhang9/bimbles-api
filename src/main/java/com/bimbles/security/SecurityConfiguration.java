@@ -18,6 +18,11 @@ import org.springframework.web.cors.CorsConfiguration;
 
 
 import com.bimbles.services.AuthenticationService;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -43,7 +48,7 @@ public class SecurityConfiguration{
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.
 			csrf().disable()
-			.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()).and()
+			.cors().configurationSource(corsConfigurationSource()).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.formLogin().disable()
 			.httpBasic().and()
@@ -53,7 +58,7 @@ public class SecurityConfiguration{
 						"/login",
 						"/swagger-ui/index.html")
 					.permitAll()
-				.requestMatchers("/preferences").hasAuthority("ADMIN")
+				.requestMatchers("/preferences").permitAll()
 				.requestMatchers(HttpMethod.POST, "/item/(restaurant|place|business|product)").hasAnyAuthority("ADMIN","NORMAL")
 				.requestMatchers(HttpMethod.GET, "/item/**").permitAll()
 			.anyRequest().authenticated()
@@ -66,5 +71,14 @@ public class SecurityConfiguration{
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
-	} 
+	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+		configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT", "DELETE"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }

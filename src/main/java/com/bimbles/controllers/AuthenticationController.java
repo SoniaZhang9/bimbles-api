@@ -1,16 +1,18 @@
 package com.bimbles.controllers;
 
+import com.bimbles.security.CustomUserDetails;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bimbles.entities.NormalUser;
-import com.bimbles.security.LoginForm;
 import com.bimbles.services.AuthenticationService;
 import com.bimbles.utils.JwtUtil;
 import com.bimbles.utils.Views;
@@ -27,17 +29,32 @@ public class AuthenticationController {
 	
 	@Autowired 
 	JwtUtil jwtUtil;
+
+	@AllArgsConstructor
+	@Getter
+	 static class LoginForm {
+		private String username;
+		private String password;
+	}
+
+	@AllArgsConstructor
+	@Getter
+	static class LoginResponse {
+		private String jwt;
+		private Long userId;
+	}
 	
 	@PostMapping(value="/login")
-	public ResponseEntity<String> login(@RequestBody LoginForm loginForm) {
+	public ResponseEntity<LoginResponse> login(@RequestBody LoginForm loginForm) {
 
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword()));
 
-		UserDetails userDetails = authService.loadUserByUsername(loginForm.getUsername());
+		CustomUserDetails userDetails = (CustomUserDetails) authService.loadUserByUsername(loginForm.getUsername());
 		
 		String jwt = jwtUtil.generateToken(userDetails);
-		
-		return new ResponseEntity<String>(jwt, HttpStatus.OK);
+		LoginResponse response = new LoginResponse(jwt, userDetails.getId());
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	} 
 	
 	@PostMapping(value="/register")
