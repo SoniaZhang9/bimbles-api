@@ -23,7 +23,7 @@ click en el link señalado.
 4. Ejecutar el archivo .exe que se ha descargado.
 5. Seleccionar la opcion señalada en la imagen y dar siempre a siguiente: 
 ![sql-3](https://user-images.githubusercontent.com/78765878/217398149-24e4cabc-b6b3-4120-b91b-608ed757d059.PNG)
-6. Al llegar aquí, le tenemos que dar una contraseña al root. La contraseña debe coincidir con lo configurado en el fichero `application.propperties` del proyecto. Después damos a siguiente y seguimos el proceso hasta terminar.
+6. Al llegar aquí, le tenemos que dar una contraseña al root. La contraseña debe coincidir con lo configurado en el fichero `application.propperties` del proyecto. En nuestro caso, tanto el usuario como contraseña tienen el valor `root`. Después damos a siguiente y seguimos el proceso hasta terminar.
 ![sql-7](https://user-images.githubusercontent.com/78765878/217398747-27b434dc-34a0-42e4-9804-4060243068ff.PNG)
 ![sql-9](https://user-images.githubusercontent.com/78765878/217401882-8176686d-e772-4887-8190-3ab4cce47cdb.PNG)
 
