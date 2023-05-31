@@ -30,24 +30,24 @@ click en el link señalado.
 ### Abrir en su IDE correspondinte
 1. Instalar las dependencias del proyecto con `mvn install` o a través de su IDE: 
 
-En **IntelliJ IDEA**
+    <sub>En **IntelliJ IDEA** </sub>
 
-![maven](https://user-images.githubusercontent.com/78765878/217403162-bcb299db-28c7-4d18-9f17-22da0e6f41ae.PNG)
-*hola*
+    ![maven](https://user-images.githubusercontent.com/78765878/217403162-bcb299db-28c7-4d18-9f17-22da0e6f41ae.PNG)
 
-En **Eclipse Spring Tool Suite 4**
 
-![eclip1](https://github.com/SoniaZhang9/bimbles-api/assets/78765878/cacdbc35-a5bb-4021-b17b-4c93a4f1cafa)
+    <sub> En **Eclipse Spring Tool Suite 4** </sub>
+
+    ![eclip1](https://github.com/SoniaZhang9/bimbles-api/assets/78765878/cacdbc35-a5bb-4021-b17b-4c93a4f1cafa)
 
 2. Ejecutar `BimblesApiApplication.java`
 
-En **IntelliJ IDEA**
+    <sub> En **IntelliJ IDEA** </sub>
 
-![maven2](https://user-images.githubusercontent.com/78765878/217403161-e4ffab47-cc41-4064-b88d-e68cb4ba0290.PNG)
+    ![maven2](https://user-images.githubusercontent.com/78765878/217403161-e4ffab47-cc41-4064-b88d-e68cb4ba0290.PNG)
 
-En **Eclipse Spring Tool Suite 4**
+    <sub> En **Eclipse Spring Tool Suite 4** </sub>
 
-![eclip2](https://github.com/SoniaZhang9/bimbles-api/assets/78765878/df951b01-e605-4efa-91e7-12da15bd1471)
+    ![eclip2](https://github.com/SoniaZhang9/bimbles-api/assets/78765878/df951b01-e605-4efa-91e7-12da15bd1471)
 
 ## Documentacion generada con swagger
 Puede ver la documentacion en:
