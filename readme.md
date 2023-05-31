@@ -37,5 +37,5 @@ click en el link señalado.
 ## Documentacion generada con swagger
 Puede ver la documentacion en:
 
-- https://app.swaggerhub.com/apis-docs/SoniaZhang9/open-api_definition/v0#
+- https://app.swaggerhub.com/apis-docs/SoniaZhang9/bimbles-api/v0
 - http://localhost:8080/swagger-ui/index.html *(Es necesario ejecutar el proyecto)*
