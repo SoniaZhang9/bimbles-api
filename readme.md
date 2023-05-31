@@ -1,6 +1,9 @@
-# Intalación del proyecto
+# PFG | ETSISI - UPM 
+***Implementación de un sistema de recomendación basado en el filtrado colaborativo para la asistencia de personas alergicas o con necesidades especiales***
+
+## Intalación del proyecto
 Para poder ejecutar el proyecto, primero de todo se necesita descargar lo siguiente:
-## Descarga de SDK 17
+### Descarga de SDK 17
 1. Ir a enlace de [descarga de JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 2. Bajo el apartado *"Java SE Development Kit"*, elegir el archivo instalador (*installer*)
 que se corresponda con su sistema operativo.
@@ -10,7 +13,7 @@ sesión o crear una cuenta para poder iniciar la descarga.
 5. Comprobacion: abrir su intérprete de comandos (cmd) y escribir
 `java -version`
 
-## Descarga MySQL
+### Descarga MySQL
 1. Ir a la [dirección](https://dev.mysql.com/downloads) y descargar **MySQL
 Installer for Windows**
 2. Elegir el instalador que pesa 431M
@@ -24,7 +27,7 @@ click en el link señalado.
 ![sql-7](https://user-images.githubusercontent.com/78765878/217398747-27b434dc-34a0-42e4-9804-4060243068ff.PNG)
 ![sql-9](https://user-images.githubusercontent.com/78765878/217401882-8176686d-e772-4887-8190-3ab4cce47cdb.PNG)
 
-## Abrir en su IDE correspondinte
+### Abrir en su IDE correspondinte
 1. Instalar las dependencias del proyecto con `mvn install` o a través de su IDE:
 
 ![maven](https://user-images.githubusercontent.com/78765878/217403162-bcb299db-28c7-4d18-9f17-22da0e6f41ae.PNG)
